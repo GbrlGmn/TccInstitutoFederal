@@ -12,7 +12,7 @@ public class ItemOrdemServico {
     private long id;
     private int quantidade;
     private double valorUnitario;
-    private double valorTotal;
+
 
     @ManyToOne
     @JoinColumn(name = "id_servico")

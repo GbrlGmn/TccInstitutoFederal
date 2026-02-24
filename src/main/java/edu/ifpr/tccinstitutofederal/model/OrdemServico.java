@@ -29,7 +29,14 @@ public class OrdemServico {
 
     private Date dataOs;
     private Date dataTermino;
-    private double valorTotal;
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusOrder status;
+
+    public enum StatusOrder {
+        ABERTA,
+        EM_ANDAMENTO,
+        FINALIZADA,
+        CANCELADA
+    }
 
 }

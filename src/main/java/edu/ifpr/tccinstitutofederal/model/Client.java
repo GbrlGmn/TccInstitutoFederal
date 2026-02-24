@@ -12,7 +12,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private List<OrdemServico> ordens;
+
     private String nome;
     private String RG;
     private String CPF;
@@ -25,4 +25,7 @@ public class Client {
     private String cep;
     private String nCasa;
     private boolean Status;
+
+
+    private List<OrdemServico> ordens;
 }
