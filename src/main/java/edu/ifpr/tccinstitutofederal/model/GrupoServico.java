@@ -7,17 +7,15 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Entity
 @Getter @Setter
-public class ordemServico {
+public class GrupoServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Date dataOs;
-    private Date dataTermino;
-    private double valorTotal;
+    private String nome;
+    private String descricao;
     private boolean status;
+
 
 }

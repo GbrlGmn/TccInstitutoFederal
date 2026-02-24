@@ -1,30 +1,32 @@
 package edu.ifpr.tccinstitutofederal.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter @Setter
-public class employee {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String endeco;
-    private Date dataNasc;
-    private byte telefone;
+    private LocalDate dataNasc;
+    private String telefone;
     private String cargo;
-    private Date dataAdm;
-    private Date dataDem;
+    private LocalDate dataAdm;
+    private LocalDate dataDem;
     private double salario;
     private boolean status;
+
+    @OneToMany(mappedBy = "employee")
+    private List<OrdemServico> ordensServico;
+
 
 }

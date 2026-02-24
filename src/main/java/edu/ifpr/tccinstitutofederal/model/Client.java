@@ -1,28 +1,28 @@
 package edu.ifpr.tccinstitutofederal.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter @Setter
-public class client {
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private List<OrdemServico> ordens;
     private String nome;
-    private byte RG;
-    private byte CPF;
-    private byte telefone;
+    private String RG;
+    private String CPF;
+    private String telefone;
     private String email;
     private String localTrabalho;
     private String endereco;
     private String cidade;
     private String uf;
     private String cep;
-    private byte nCasa;
+    private String nCasa;
     private boolean Status;
 }
