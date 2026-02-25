@@ -8,7 +8,8 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Client {
+@Table (name = "cliente")
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,6 +27,6 @@ public class Client {
     private String nCasa;
     private boolean Status;
 
-
-    private List<OrdemServico> ordens;
+    @OneToMany(mappedBy = "cliente")
+    private List<OrdemServico> ordemServico;
 }

@@ -6,12 +6,14 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter
+@Table (name = "item_ordem_servico")
 public class ItemOrdemServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int quantidade;
     private double valorUnitario;
+    private double valorTotal;
 
 
     @ManyToOne

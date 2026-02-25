@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Employee {
+@Table (name = "funcionario")
+public class Funcionario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +25,8 @@ public class Employee {
     private double salario;
     private boolean status;
 
-    @OneToMany(mappedBy = "employee")
-    private List<OrdemServico> ordensServico;
+    @OneToMany(mappedBy = "funcionario")
+    private List<OrdemServico> ordemServico;
 
 
 }

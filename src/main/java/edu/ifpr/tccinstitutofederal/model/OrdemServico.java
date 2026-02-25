@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,21 +14,8 @@ public class OrdemServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    // Relacionamento com as outras entidades
-    @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "id_funcionario")
-    private Employee employee;
-
-    @OneToMany(mappedBy = "ordemServico")
-    private List<ItemOrdemServico> itens;
-
-    private Date dataOs;
-    private Date dataTermino;
+    private LocalDate dataOs;
+    private LocalDate dataTermino;
     @Enumerated(EnumType.STRING)
     private StatusOrder status;
 
@@ -38,5 +25,14 @@ public class OrdemServico {
         FINALIZADA,
         CANCELADA
     }
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+    private Cliente cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "id_funcionario")
+    private Funcionario funcionario;
+
+    @OneToMany(mappedBy = "ordemServico")
+    private List<ItemOrdemServico> itens;
 }
