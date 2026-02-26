@@ -20,7 +20,8 @@ public class OrdemServico {
     private StatusOrder status;
 
     public enum StatusOrder {
-        ABERTA,
+        ORCAMENTO,
+        CONFIRMADA,
         EM_ANDAMENTO,
         FINALIZADA,
         CANCELADA
