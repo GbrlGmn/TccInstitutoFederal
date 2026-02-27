@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import edu.ifpr.tccinstitutofederal.model.Pagamentos;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,17 +18,13 @@ public class OrdemServico {
     private long id;
     private LocalDate dataAbertura;
     private LocalDate dataFechamento;
-    private double valorMaterial;
-    private double valorFinal;
-    private double valorPago;
-    private String formaPagamento;
-    private String observacao;
     @Enumerated(EnumType.STRING)
     private StatusOrder status;
+    private double valorTotal;
+
 
     public enum StatusOrder {
         ORCAMENTO,
-        ABERTA,
         EM_ANDAMENTO,
         FINALIZADA,
         CANCELADA
@@ -39,8 +37,12 @@ public class OrdemServico {
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
+    @ManyToOne
+    @JoinColumn(name = "id_pagamento")
+    private List<Pagamentos> pagamentos;
+
     @OneToMany(mappedBy = "ordemServico")
     private List<ItemOrdemServico> itens;
 
-    // pelo o que eu estou vendo, talvez eu preciso
+
 }
