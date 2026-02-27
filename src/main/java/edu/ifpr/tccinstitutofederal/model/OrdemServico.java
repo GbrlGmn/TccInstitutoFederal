@@ -14,12 +14,18 @@ public class OrdemServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate dataOs;
-    private LocalDate dataTermino;
+    private LocalDate dataAbertura;
+    private LocalDate dataFechamento;
+    private double valorMaterial;
+    private double valorFinal;
+    private double valorPago;
+    private String formaPagamento;
+    private String observacao;
     @Enumerated(EnumType.STRING)
     private StatusOrder status;
 
     public enum StatusOrder {
+        ORCAMENTO,
         ABERTA,
         EM_ANDAMENTO,
         FINALIZADA,
@@ -35,4 +41,6 @@ public class OrdemServico {
 
     @OneToMany(mappedBy = "ordemServico")
     private List<ItemOrdemServico> itens;
+
+    // pelo o que eu estou vendo, talvez eu preciso
 }

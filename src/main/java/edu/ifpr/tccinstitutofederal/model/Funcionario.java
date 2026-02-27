@@ -16,7 +16,7 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String endeco;
+    private String endereco;
     private LocalDate dataNasc;
     private String telefone;
     private String cargo;
