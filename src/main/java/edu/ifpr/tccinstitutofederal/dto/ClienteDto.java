@@ -1,4 +1,4 @@
 package edu.ifpr.tccinstitutofederal.dto;
 
-public class ClientDto {
+public class ClienteDto {
 }

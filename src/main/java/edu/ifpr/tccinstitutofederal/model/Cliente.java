@@ -15,7 +15,6 @@ public class Cliente {
     private long id;
 
     private String nome;
-    private String RG;
     private String CPF;
     private String telefone;
     private String email;

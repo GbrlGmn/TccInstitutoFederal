@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-public class Pagamentos {
+public class Recibo {
     @Id
     private long id;
     private LocalDate dataPagamento;

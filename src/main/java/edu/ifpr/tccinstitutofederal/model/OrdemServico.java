@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import edu.ifpr.tccinstitutofederal.model.Pagamentos;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,7 +18,9 @@ public class OrdemServico {
     private LocalDate dataFechamento;
     @Enumerated(EnumType.STRING)
     private StatusOrder status;
-    private double valorTotal;
+    private double valorOrdemServico;
+    private byte porcentagem;
+
 
 
     public enum StatusOrder {
@@ -37,12 +37,16 @@ public class OrdemServico {
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "id_pagamento")
-    private List<Pagamentos> pagamentos;
+    private List<Recibo> pagamentos;
 
     @OneToMany(mappedBy = "ordemServico")
     private List<ItemOrdemServico> itens;
 
+    public double calcularTotal(double valorOrdemServico, byte porcentagem){
+    double valorTotal = valorOrdemServico + (valorOrdemServico / porcentagem);
+        return valorTotal;
+    }
 
 }

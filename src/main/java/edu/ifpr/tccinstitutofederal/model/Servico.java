@@ -15,8 +15,7 @@ public class Servico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private Time tempoMedio;
-    private boolean status;
+    private String descricao;
 
     @OneToMany (mappedBy = "servico")
     private List<ItemOrdemServico> itensOrdemServico;

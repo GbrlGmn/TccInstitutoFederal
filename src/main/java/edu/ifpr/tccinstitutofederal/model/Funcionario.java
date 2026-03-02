@@ -20,8 +20,8 @@ public class Funcionario {
     private LocalDate dataNasc;
     private String telefone;
     private String cargo;
-    private LocalDate dataAdm;
-    private LocalDate dataDem;
+    private LocalDate dataAdmissao;
+    private LocalDate dataDemicao;
     private double salario;
     private boolean status;
 

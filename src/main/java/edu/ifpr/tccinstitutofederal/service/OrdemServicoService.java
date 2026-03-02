@@ -67,9 +67,4 @@ public class OrdemServicoService {
         os.setStatus(OrdemServico.StatusOrder.EM_ANDAMENTO);
         return repository.save(os);
     }
-    public OrdemServico somarOrdemServico(OrdemServico os) {
-        double valorTotal = os.
-    }
-
-
 }
