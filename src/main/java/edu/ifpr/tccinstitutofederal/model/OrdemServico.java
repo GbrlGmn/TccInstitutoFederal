@@ -45,8 +45,7 @@ public class OrdemServico {
     private List<ItemOrdemServico> itens;
 
     public double calcularTotal(double valorOrdemServico, byte porcentagem){
-    double valorTotal = valorOrdemServico + (valorOrdemServico / porcentagem);
-        return valorTotal;
+        return valorOrdemServico + (valorOrdemServico / porcentagem);
     }
 
 }
