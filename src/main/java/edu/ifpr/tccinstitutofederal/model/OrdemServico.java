@@ -37,15 +37,17 @@ public class OrdemServico {
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    @OneToMany
-    @JoinColumn(name = "id_pagamento")
-    private List<Recibo> pagamentos;
+    @OneToMany(mappedBy = "ordemServico") // Tem que ser exatamente "ordemServico"
+    private List<Recibo> pagamentos; // Ou recibos, como preferir chamar a lista
 
     @OneToMany(mappedBy = "ordemServico")
     private List<ItemOrdemServico> itens;
 
-    public double calcularTotal(double valorOrdemServico, byte porcentagem){
-        return valorOrdemServico + (valorOrdemServico / porcentagem);
+    public double getValorTotal() {
+        // Evita divisão por zero se a porcentagem for 0
+        if (this.porcentagem == 0) return this.valorOrdemServico;
+
+        return this.valorOrdemServico + (this.valorOrdemServico * (this.porcentagem / 100.0));
     }
 
 }

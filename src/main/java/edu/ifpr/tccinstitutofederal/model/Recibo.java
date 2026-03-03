@@ -24,4 +24,5 @@ public class Recibo {
     @ManyToOne
     @JoinColumn(name = "id_ordem_servico")
     private OrdemServico ordemServico;
+
 }

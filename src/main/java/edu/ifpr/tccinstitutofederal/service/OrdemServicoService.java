@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Transactional
 @Service
@@ -66,5 +67,15 @@ public class OrdemServicoService {
         }
         os.setStatus(OrdemServico.StatusOrder.EM_ANDAMENTO);
         return repository.save(os);
+    }
+
+
+    public List<OrdemServico> listarTodas() {
+        return repository.findAll();
+    }
+
+    public List<OrdemServico> findAllByStatus(OrdemServico.StatusOrder status){
+        return repository.findByStatus(status);
+
     }
 }
