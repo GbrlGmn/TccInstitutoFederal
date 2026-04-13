@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
-
-import Dashboard from "./pages/Dashboard";
-import Orcamentos from "./pages/Orcamentos";
+import Login from "./pages/login";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   return (
@@ -11,7 +9,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/orcamentos" element={<Orcamentos />} />
       </Routes>
     </BrowserRouter>
   );

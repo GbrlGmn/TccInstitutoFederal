@@ -1,7 +1,26 @@
 import background from "../assets/sspaco-logo-branca.png";
 import logo from "../assets/sspaco-fundo.jpg";
 
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [usuario, setUsuario] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function handleLogin(e) {
+    e.preventDefault();
+
+    // simulação de login
+    if (usuario === "admin" && senha === "123") {
+      navigate("/dashboard");
+    } else {
+      alert("Usuário ou senha inválidos");
+    }
+  }
+
   return (
     <div
       className="h-screen flex items-center justify-center relative bg-no-repeat bg-center"
@@ -13,18 +32,20 @@ export default function Login() {
         <img
           src={logo}
           alt="Logo SS Paco"
-          className="w-22.5 h-22.5 mx-auto mb-4 rounded shadow-md"
+          className="w-24 h-24 mx-auto mb-4 rounded shadow-md"
         />
 
         <h2 className="mb-4 text-[#8b0000] font-semibold text-xl">
           Login de Acesso
         </h2>
 
-        <form className="flex flex-col gap-2">
+        <form onSubmit={handleLogin} className="flex flex-col gap-2">
           <input
             type="text"
             placeholder="Usuário"
             required
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg"
           />
 
@@ -32,6 +53,8 @@ export default function Login() {
             type="password"
             placeholder="Senha"
             required
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg"
           />
 
