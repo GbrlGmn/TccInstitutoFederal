@@ -1,8 +1,8 @@
 import background from "../assets/sspaco-logo-branca.png";
 import logo from "../assets/sspaco-fundo.jpg";
-
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { login } from "../services/api";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,14 +10,16 @@ export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
-    // simulação de login
-    if (usuario === "admin" && senha === "123") {
+    const response = await login(usuario, senha);
+
+    if (response.ok) {
+      localStorage.setItem("token", response.token);
       navigate("/dashboard");
     } else {
-      alert("Usuário ou senha inválidos");
+      alert(response.message);
     }
   }
 
@@ -46,7 +48,7 @@ export default function Login() {
             required
             value={usuario}
             onChange={(e) => setUsuario(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
 
           <input
@@ -55,12 +57,12 @@ export default function Login() {
             required
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-300"
           />
 
           <button
             type="submit"
-            className="w-[85%] mx-auto mt-2 p-3 bg-[#8b0000] text-white rounded-lg font-bold hover:bg-red-900 transition"
+            className="w-[85%] mx-auto mt-2 p-3 bg-red-900 text-white rounded-lg font-bold hover:bg-red-800 transition"
           >
             Entrar
           </button>
