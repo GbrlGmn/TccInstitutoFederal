@@ -1,6 +1,6 @@
-package edu.ifpr.tccinstitutofederal.repository;
+package edu.ifpr.tccinstitutofederal.servico;
 
-import edu.ifpr.tccinstitutofederal.model.ItemOrdemServico;
+import edu.ifpr.tccinstitutofederal.ordemServico.ItemOrdemServico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

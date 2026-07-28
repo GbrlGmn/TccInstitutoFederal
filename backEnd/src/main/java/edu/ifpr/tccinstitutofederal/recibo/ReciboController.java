@@ -1,4 +1,4 @@
-package edu.ifpr.tccinstitutofederal.controller;
+package edu.ifpr.tccinstitutofederal.recibo;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

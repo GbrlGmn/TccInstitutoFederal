@@ -1,9 +1,7 @@
-package edu.ifpr.tccinstitutofederal.model;
+package edu.ifpr.tccinstitutofederal.recibo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import edu.ifpr.tccinstitutofederal.ordemServico.OrdemServico;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +11,7 @@ import java.time.LocalDate;
 @Getter @Setter
 public class Recibo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate dataPagamento;
     private double valorPago;

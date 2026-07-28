@@ -1,5 +1,6 @@
-package edu.ifpr.tccinstitutofederal.model;
+package edu.ifpr.tccinstitutofederal.funcionario;
 
+import edu.ifpr.tccinstitutofederal.ordemServico.OrdemServico;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +13,14 @@ import java.util.List;
 @Table (name = "funcionario")
 public class Funcionario {
 
+    @OneToMany(mappedBy = "funcionario")
+    private List<OrdemServico> ordemServico;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false)
     private String nome;
     private String endereco;
     private LocalDate dataNasc;
@@ -25,8 +31,7 @@ public class Funcionario {
     private double salario;
     private boolean status;
 
-    @OneToMany(mappedBy = "funcionario")
-    private List<OrdemServico> ordemServico;
+
 
 
 }

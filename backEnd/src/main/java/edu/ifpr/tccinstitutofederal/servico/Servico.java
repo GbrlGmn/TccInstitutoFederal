@@ -1,10 +1,10 @@
-package edu.ifpr.tccinstitutofederal.model;
+package edu.ifpr.tccinstitutofederal.servico;
 
+import edu.ifpr.tccinstitutofederal.ordemServico.ItemOrdemServico;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
 import java.util.List;
 
 @Entity

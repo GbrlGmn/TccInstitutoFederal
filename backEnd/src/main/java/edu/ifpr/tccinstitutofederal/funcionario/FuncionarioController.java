@@ -1,6 +1,5 @@
-package edu.ifpr.tccinstitutofederal.controller;
+package edu.ifpr.tccinstitutofederal.funcionario;
 
-import edu.ifpr.tccinstitutofederal.repository.FuncionarioRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

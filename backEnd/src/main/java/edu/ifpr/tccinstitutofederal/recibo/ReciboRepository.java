@@ -1,6 +1,5 @@
-package edu.ifpr.tccinstitutofederal.repository;
+package edu.ifpr.tccinstitutofederal.recibo;
 
-import edu.ifpr.tccinstitutofederal.model.Recibo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

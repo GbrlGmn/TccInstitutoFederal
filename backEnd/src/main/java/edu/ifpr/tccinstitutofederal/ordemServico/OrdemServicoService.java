@@ -1,7 +1,5 @@
-package edu.ifpr.tccinstitutofederal.service;
+package edu.ifpr.tccinstitutofederal.ordemServico;
 
-import edu.ifpr.tccinstitutofederal.model.OrdemServico;
-import edu.ifpr.tccinstitutofederal.repository.OrdemServicoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

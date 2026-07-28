@@ -1,5 +1,8 @@
-package edu.ifpr.tccinstitutofederal.model;
+package edu.ifpr.tccinstitutofederal.ordemServico;
 
+import edu.ifpr.tccinstitutofederal.cliente.Cliente;
+import edu.ifpr.tccinstitutofederal.funcionario.Funcionario;
+import edu.ifpr.tccinstitutofederal.recibo.Recibo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
