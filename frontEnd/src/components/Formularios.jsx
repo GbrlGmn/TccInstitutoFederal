@@ -1,53 +1,22 @@
-export default function Formularios() {
+export default function Formularios({ titulo, children, onSubmit, tituloClassName }) {
   return (
-    <div className="border-b border-white/10 pb-12">
-      <h2 className="text-base/7 font-semibold text-white">
-        Personal Information
-      </h2>
+    <form onSubmit={onSubmit} className="w-full max-w-5xl bg-white rounded-xl shadow p-8">
+      
+      <h1 className={`text-2xl font-bold mb-6 ${tituloClassName}`}>
+        {titulo}
+      </h1>
 
-      <p className="mt-1 text-sm/6 text-gray-400">
-        Use a permanent address where you can receive mail.
-      </p>
+      {children}
 
-      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-        <div className="sm:col-span-3">
-          <label
-            htmlFor="first-name"
-            className="block text-sm/6 font-medium text-white"
-          >
-            First name
-          </label>
+      <div className="flex justify-end gap-3 mt-6">
+        <button type="button" className="px-4 py-2 border rounded-lg">
+          Cancelar
+        </button>
 
-          <div className="mt-2">
-            <input
-              id="first-name"
-              name="first-name"
-              type="text"
-              autoComplete="given-name"
-              className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-            />
-          </div>
-        </div>
-
-        <div className="sm:col-span-3">
-          <label
-            htmlFor="last-name"
-            className="block text-sm/6 font-medium text-white"
-          >
-            Last name
-          </label>
-
-          <div className="mt-2">
-            <input
-              id="last-name"
-              name="last-name"
-              type="text"
-              autoComplete="family-name"
-              className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-            />
-          </div>
-        </div>
+        <button type="submit" className="px-4 py-2 bg-red-900 text-white rounded-lg font-bold hover:bg-red-800 transition">
+          Salvar
+        </button>
       </div>
-    </div>
+    </form>
   );
 }

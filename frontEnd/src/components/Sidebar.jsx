@@ -8,6 +8,10 @@ import {
   BadgeDollarSign,
   Calculator,
   ChevronDown,
+  Calendar1Icon,
+  Calendar,
+  ClipboardListIcon,
+  BarChart,
 } from "lucide-react";
 
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -16,7 +20,7 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 bg-red-900 text-gray-100 flex flex-col items-center p-4 min-h-screen">
+    <aside className="w-63 bg-red-900 text-gray-100 flex flex-col items-center p-4 min-h-screen">
       <img src={background} alt="Logo SS Paco" className="w-24 mb-8" />
 
       <nav className="flex flex-col gap-3 w-full">
@@ -26,6 +30,50 @@ export default function Sidebar() {
         >
           <Home size={20} />
           Início
+        </Link>
+
+        <Menu as="div" className="relative w-full">
+          <MenuButton className="flex w-full items-center justify-between p-3 font-bold rounded-md hover:bg-red-800 transition">
+            <div className="flex items-center gap-2">
+              <FileText size={20} />
+              Ordens de Serviço
+            </div>
+
+            <ChevronDown size={18} />
+          </MenuButton>
+
+          <MenuItems className="mt-2 w-full rounded-md bg-red-800 shadow-lg overflow-hidden">
+            <MenuItem>
+              <Link
+                to="/ordemServico"
+                className="block px-4 py-2 hover:bg-red-700"
+              >
+                Nova OS
+              </Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link to="/listarOS" className="block px-4 py-2 hover:bg-red-700">
+                Listar OS
+              </Link>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
+
+        <Link
+          to="/orcamentos"
+          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
+        >
+          <ClipboardListIcon size={20} />
+          Orçamentos
+        </Link>
+
+        <Link
+          to="/recebimentos"
+          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
+        >
+          <BadgeDollarSign size={20} />
+          Recebimentos
         </Link>
 
         <Menu as="div" className="relative w-full">
@@ -62,45 +110,45 @@ export default function Sidebar() {
           </MenuItems>
         </Menu>
 
-        <Link
-          to="/orcamentos"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
-        >
-          <Calculator size={20} />
-          Orçamentos
-        </Link>
+        <Menu as="div" className="relative w-full">
+          <MenuButton className="flex w-full items-center justify-between p-3 font-bold rounded-md hover:bg-red-800 transition">
+            <div className="flex items-center gap-2">
+              <BarChart size={20} />
+              Relatórios
+            </div>
 
-        <Link
-          to="/ordemServico"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
-        >
-          <Package size={20} />
-          Ordens de Serviço
-        </Link>
+            <ChevronDown size={18} />
+          </MenuButton>
 
-        <Link
-          to="/estoque"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
-        >
-          <Boxes size={20} />
-          Estoque
-        </Link>
+          <MenuItems className="mt-2 w-full rounded-md bg-red-800 shadow-lg overflow-hidden">
+            <MenuItem>
+              <Link
+                to="/Relatorio de clientes"
+                className="block px-4 py-2 hover:bg-red-700"
+              >
+                Clientes
+              </Link>
+            </MenuItem>
 
-        <Link
-          to="/financeiro"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
-        >
-          <BadgeDollarSign size={20} />
-          Financeiro
-        </Link>
+            <MenuItem>
+              <Link
+                to="/Relatorio de OS"
+                className="block px-4 py-2 hover:bg-red-700"
+              >
+                OS
+              </Link>
+            </MenuItem>
 
-        <Link
-          to="/relatorios"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
-        >
-          <FileText size={20} />
-          Relatórios
-        </Link>
+            <MenuItem>
+              <Link
+                to="/Relatorio Financeiro"
+                className="block px-4 py-2 hover:bg-red-700"
+              >
+                Financeiro
+              </Link>
+            </MenuItem>
+          </MenuItems>
+        </Menu>
 
         <Link
           to="/"
