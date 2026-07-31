@@ -14,10 +14,11 @@ import java.util.List;
 @Builder
 public class Cliente {
 
-
+    //Relacionamentos
     @OneToMany(mappedBy = "cliente")
     private List<OrdemServico> ordemServico;
 
+    //Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -53,5 +54,5 @@ public class Cliente {
     private String ncasa;
 
     //status vai ser ativo e desativo
-    private boolean status = true;
+    private boolean status;
 }

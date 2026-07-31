@@ -4,34 +4,24 @@ import edu.ifpr.tccinstitutofederal.cliente.Cliente;
 import edu.ifpr.tccinstitutofederal.funcionario.Funcionario;
 import edu.ifpr.tccinstitutofederal.recibo.Recibo;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Getter @Setter
 @Table(name = "ordem_servico")
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrdemServico {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private LocalDate dataAbertura;
-    private LocalDate dataFechamento;
-    @Enumerated(EnumType.STRING)
-    private StatusOrder status;
-    private double valorOrdemServico;
-    private byte porcentagem;
 
-
-
-    public enum StatusOrder {
-        ORCAMENTO,
-        EM_ANDAMENTO,
-        FINALIZADA,
-        CANCELADA
-    }
+    //Relacionamentos
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
@@ -46,11 +36,44 @@ public class OrdemServico {
     @OneToMany(mappedBy = "ordemServico")
     private List<ItemOrdemServico> itens;
 
-    public double getValorTotal() {
-        // Evita divisão por zero se a porcentagem for 0
-        if (this.porcentagem == 0) return this.valorOrdemServico;
+    //atributos
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-        return this.valorOrdemServico + (this.valorOrdemServico * (this.porcentagem / 100.0));
+    @Column(name = "data_abertura")
+    private LocalDate dataAbertura;
+
+    @Column(name = "data_fechamento")
+    private LocalDate dataFechamento;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_order")
+    private StatusOrder status;
+
+    @Column(name = "valor_ordem_servico", nullable = false)
+    private BigDecimal valorOrdemServico;
+
+    @Column(nullable = false)
+    private BigDecimal porcentagem;
+
+    //enum
+    public enum StatusOrder {
+
+        ORCAMENTO,
+        EM_ANDAMENTO,
+        FINALIZADA,
+        CANCELADA
+    }
+
+    public BigDecimal getValorTotal() {
+        if (this.porcentagem.compareTo(BigDecimal.ZERO) == 0) {
+            return this.valorOrdemServico.setScale(2, RoundingMode.HALF_UP);
+        }
+        BigDecimal percentual = this.porcentagem.divide(BigDecimal.valueOf(100));
+        return this.valorOrdemServico
+                .add(this.valorOrdemServico.multiply(percentual))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
 }

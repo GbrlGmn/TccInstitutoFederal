@@ -1,6 +1,6 @@
 package edu.ifpr.tccinstitutofederal.cliente;
 
-import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteDto;
+import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteRequestDto;
 import edu.ifpr.tccinstitutofederal.cliente.dto.ClientePatchDto;
 import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteResponseDto;
 import edu.ifpr.tccinstitutofederal.shared.exception.RegraDeNegocioException;
@@ -8,6 +8,7 @@ import edu.ifpr.tccinstitutofederal.shared.exception.RecursoNaoEncontradoExcepti
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
@@ -25,8 +26,14 @@ public class ClienteService {
                 .toList();
     }
 
+    public ClienteResponseDto findById(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado: id " + id));
+        return ClienteResponseDto.from(cliente);
+    }
+
     @Transactional
-    public void save(ClienteDto dto) {
+    public void save(ClienteRequestDto dto) {
         if (!validarCpf(dto.getCpf())) {
             throw new IllegalArgumentException("CPF inválido.");
 
@@ -47,27 +54,41 @@ public class ClienteService {
         clienteRepository.save(cliente);
     }
 
-    public ClienteResponseDto findById(Long id) {
+    @Transactional
+    public ClienteResponseDto deleteById(Long id) {
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado: id " + id));
+                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado: id " + id));
+        if (cliente.isStatus()) {
+            cliente.setStatus(false);
+        }else {
+            System.out.println("cliente nao encontrado");
+        }
+        Cliente atualizado = clienteRepository.save(cliente);
         return ClienteResponseDto.from(cliente);
     }
+
     @Transactional
-    public void deleteById(Long id) {
-        clienteRepository.deleteById(id);
+    public ClienteResponseDto reactivateCliente(@PathVariable Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+        if (!cliente.isStatus()) {
+            cliente.setStatus(true);
+        }else  {
+            System.out.println("cliente nao encontrado");
+        }
+      Cliente atualizado = clienteRepository.save(cliente);
+        return ClienteResponseDto.from(atualizado);
     }
 
     @Transactional
-    public ClienteResponseDto update(ClienteDto dto, Long id) {
-
-
+    public ClienteResponseDto update(ClienteRequestDto dto, Long id) {
 
         if (!validarCpf(dto.getCpf())) {
             throw new RegraDeNegocioException("CPF inválido.");
         }
 
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado: id " + id));
 
         cliente.setNome(dto.getNome());
         cliente.setCpf(dto.getCpf());
@@ -90,7 +111,7 @@ public class ClienteService {
     public ClienteResponseDto patch(ClientePatchDto patchDto, Long id) {
 
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente não encontrado: id " + id));
 
         if (patchDto.getNome() != null) {
             cliente.setNome(patchDto.getNome());
@@ -131,6 +152,13 @@ public class ClienteService {
         Cliente atualizado = clienteRepository.save(cliente);
 
         return ClienteResponseDto.from(atualizado);
+    }
+
+    public List<ClienteResponseDto> findAllAtivos() {
+        return clienteRepository.findByStatusTrue()
+                .stream()
+                .map(ClienteResponseDto::from)
+                .toList();
     }
 
     private boolean validarCpf(String cpf) {

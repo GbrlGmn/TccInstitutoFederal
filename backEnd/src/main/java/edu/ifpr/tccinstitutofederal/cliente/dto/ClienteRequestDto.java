@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ClienteDto{
+public class ClienteRequestDto {
 
      @NotBlank(message = "Nome é obrigatório")
      private String nome;
@@ -43,5 +43,5 @@ public class ClienteDto{
 
      @NotBlank
      private String nCasa;
-     private boolean status = true;
+     private boolean status;
 }
