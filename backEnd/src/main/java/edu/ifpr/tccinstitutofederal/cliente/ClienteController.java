@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("v1/cliente")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class ClienteController {
     private final ClienteService service;
@@ -34,8 +35,8 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveCliente(@Valid @RequestBody ClienteRequestDto dto) {
-        service.save(dto);
+    public ClienteResponseDto saveCliente(@Valid @RequestBody ClienteRequestDto dto) {
+        return service.save(dto);
     }
 
     @GetMapping("/{id}")

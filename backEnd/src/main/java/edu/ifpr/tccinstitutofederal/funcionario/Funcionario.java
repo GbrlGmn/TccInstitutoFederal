@@ -43,7 +43,7 @@ public class Funcionario {
     @Column(nullable = false)
     private LocalDate dataAdmissao;
 
-    @Column(nullable = false)
+
     private LocalDate dataDemicao;
 
     @Column(nullable = false)

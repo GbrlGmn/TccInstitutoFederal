@@ -9,10 +9,10 @@ export default function Clientes() {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [endereco, setEndereco] = useState("");
-  const [cidade, setCidade] = useState("");
+  const [ncasa, setNcasa] = useState("");
   const [uf, setUf] = useState("");
   const [cep, setCep] = useState("");
-  const [status, setStatus] = useState("");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function Clientes() {
       telefone,
       email,
       endereco,
-      cidade,
+      ncasa,
       uf,
       cep,
       status,
@@ -37,7 +37,7 @@ export default function Clientes() {
       setTelefone("");
       setEmail("");
       setEndereco("");
-      setCidade("");
+      setNcasa("");
       setUf("");
       setCep("");
       setStatus("");
@@ -111,11 +111,11 @@ export default function Clientes() {
             </div>
 
             <div>
-              <label>Cidade</label>
+              <label>Número da Casa</label>
               <input
                 type="text"
-                value={cidade}
-                onChange={(e) => setCidade(e.target.value)}
+                value={ncasa}
+                onChange={(e) => setNcasa(e.target.value)}
                 className="w-full border rounded-lg p-2"
                 required={true}
               />
@@ -143,19 +143,7 @@ export default function Clientes() {
               />
             </div>
 
-            <div>
-              <label>Status </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full border rounded-lg p-2"
-                required={true}
-              >
-                <option>-</option>
-                <option>Ativo</option>
-                <option>Inativo</option>
-              </select>
-            </div>
+            
           </div>
         </Formularios>
       </div>

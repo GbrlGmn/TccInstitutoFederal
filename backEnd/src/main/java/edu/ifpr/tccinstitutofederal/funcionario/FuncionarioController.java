@@ -1,9 +1,13 @@
 package edu.ifpr.tccinstitutofederal.funcionario;
 
+import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteResponseDto;
+import edu.ifpr.tccinstitutofederal.funcionario.dto.FuncionarioPatchDto;
 import edu.ifpr.tccinstitutofederal.funcionario.dto.FuncionarioRequestDto;
 import edu.ifpr.tccinstitutofederal.funcionario.dto.FuncionarioResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +26,13 @@ public class FuncionarioController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void findById(@RequestParam(value = "id") Long id){
-        service.findById(id);
+    public FuncionarioResponseDto findById(@PathVariable Long id){
+        return service.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveFuncionario(@RequestBody FuncionarioRequestDto dto){
+    public void saveFuncionario(@Valid @RequestBody FuncionarioRequestDto dto){
         service.save(dto);
     }
 
@@ -38,7 +42,24 @@ public class FuncionarioController {
         service.deleteById(id);
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FuncionarioResponseDto updateFuncionario(@Valid @RequestBody FuncionarioPatchDto dto, @PathVariable Long id){
+        return service.patch(dto, id);
+    }
 
+    @GetMapping("/ativos")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<FuncionarioResponseDto>> findFuncionariosAtivos(
+            @RequestParam(required = false) Boolean ativo) {
+        return ResponseEntity.ok(service.findAllAtivos());
+    }
 
+    @PutMapping("reativar/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FuncionarioResponseDto reactivateFuncionario(@PathVariable Long id) {
+
+        return service.reactiveFuncionario(id);
+    }
 }
 

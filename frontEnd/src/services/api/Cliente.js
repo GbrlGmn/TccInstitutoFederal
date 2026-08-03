@@ -1,5 +1,5 @@
 export async function cadastrarCliente(cliente) {
-  const response = await fetch("http://localhost:8080/cliente", {
+  const response = await fetch("http://localhost:8080/v1/cliente", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

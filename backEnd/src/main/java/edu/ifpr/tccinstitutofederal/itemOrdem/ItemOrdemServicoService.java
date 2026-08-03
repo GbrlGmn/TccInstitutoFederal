@@ -1,4 +1,4 @@
-package edu.ifpr.tccinstitutofederal.ordemServico;
+package edu.ifpr.tccinstitutofederal.itemOrdem;
 
 import org.springframework.stereotype.Service;
 

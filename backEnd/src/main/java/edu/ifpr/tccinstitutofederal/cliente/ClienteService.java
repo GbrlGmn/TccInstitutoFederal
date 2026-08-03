@@ -3,6 +3,7 @@ package edu.ifpr.tccinstitutofederal.cliente;
 import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteRequestDto;
 import edu.ifpr.tccinstitutofederal.cliente.dto.ClientePatchDto;
 import edu.ifpr.tccinstitutofederal.cliente.dto.ClienteResponseDto;
+import edu.ifpr.tccinstitutofederal.funcionario.dto.FuncionarioResponseDto;
 import edu.ifpr.tccinstitutofederal.shared.exception.RegraDeNegocioException;
 import edu.ifpr.tccinstitutofederal.shared.exception.RecursoNaoEncontradoException;
 import jakarta.transaction.Transactional;
@@ -33,7 +34,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public void save(ClienteRequestDto dto) {
+    public ClienteResponseDto save(ClienteRequestDto dto) {
         if (!validarCpf(dto.getCpf())) {
             throw new IllegalArgumentException("CPF inválido.");
 
@@ -52,12 +53,15 @@ public class ClienteService {
                 .status(dto.isStatus())
                 .build();
         clienteRepository.save(cliente);
+
+        return ClienteResponseDto.from(cliente);
+
     }
 
     @Transactional
     public ClienteResponseDto deleteById(Long id) {
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado: id " + id));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente nao encontrado: id " + id));
         if (cliente.isStatus()) {
             cliente.setStatus(false);
         }else {
@@ -68,9 +72,9 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteResponseDto reactivateCliente(@PathVariable Long id) {
+    public ClienteResponseDto reactivateCliente(Long id) {
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Cliente nao encontrado"));
         if (!cliente.isStatus()) {
             cliente.setStatus(true);
         }else  {

@@ -2,6 +2,7 @@ package edu.ifpr.tccinstitutofederal.ordemServico;
 
 import edu.ifpr.tccinstitutofederal.cliente.Cliente;
 import edu.ifpr.tccinstitutofederal.funcionario.Funcionario;
+import edu.ifpr.tccinstitutofederal.itemOrdem.ItemOrdemServico;
 import edu.ifpr.tccinstitutofederal.recibo.Recibo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

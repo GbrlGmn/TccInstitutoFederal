@@ -1,23 +1,22 @@
 package edu.ifpr.tccinstitutofederal.servico;
 
-import edu.ifpr.tccinstitutofederal.ordemServico.ItemOrdemServico;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import lombok.*;
 
 @Entity
 @Getter @Setter
-@Table (name = "servico")
+@Table(name = "servico")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String nome;
-    private String descricao;
+    private Long id;
 
-    @OneToMany (mappedBy = "servico")
-    private List<ItemOrdemServico> itensOrdemServico;
+    @Column(nullable = false, unique = true)
+    private String nome;
+
+    private String descricao;
 
 }
