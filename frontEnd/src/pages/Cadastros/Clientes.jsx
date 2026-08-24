@@ -8,25 +8,31 @@ export default function Clientes() {
   const [cpf, setCpf] = useState("");
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
+  const [localTrabalho, setLocalTrabalho] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [cidade, setCidade] = useState("");
   const [ncasa, setNcasa] = useState("");
   const [uf, setUf] = useState("");
   const [cep, setCep] = useState("");
-
+  const [status, setStatus] = useState("ativo");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("STATUS:", status);
 
     const resultado = await cadastrarCliente({
       nome,
       cpf,
       telefone,
       email,
+      localTrabalho,
       endereco,
+      cidade,
       ncasa,
       uf,
       cep,
-      status,
+      status: status === "ativo",
     });
 
     if (resultado.ok) {
@@ -36,7 +42,9 @@ export default function Clientes() {
       setCpf("");
       setTelefone("");
       setEmail("");
+      setLocalTrabalho("");
       setEndereco("");
+      setCidade("");
       setNcasa("");
       setUf("");
       setCep("");
@@ -99,12 +107,34 @@ export default function Clientes() {
               />
             </div>
 
+            <div>
+              <label>Local de Trabalho</label>
+              <input
+                type="text"
+                value={localTrabalho}
+                onChange={(e) => setLocalTrabalho(e.target.value)}
+                className="w-full border rounded-lg p-2"
+                required={true}
+              />
+            </div>
+
             <div className="md:col-span-2">
               <label>Endereço</label>
               <input
                 type="text"
                 value={endereco}
                 onChange={(e) => setEndereco(e.target.value)}
+                className="w-full border rounded-lg p-2"
+                required={true}
+              />
+            </div>
+
+            <div>
+              <label>Cidade</label>
+              <input
+                type="text"
+                value={cidade}
+                onChange={(e) => setCidade(e.target.value)}
                 className="w-full border rounded-lg p-2"
                 required={true}
               />
@@ -143,7 +173,18 @@ export default function Clientes() {
               />
             </div>
 
-            
+            <div>
+              <label>Status</label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="w-full border rounded-lg p-2"
+                required={true}
+              >
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+              </select>
+            </div>
           </div>
         </Formularios>
       </div>

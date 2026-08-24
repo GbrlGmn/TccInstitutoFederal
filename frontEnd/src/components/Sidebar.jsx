@@ -123,10 +123,19 @@ export default function Sidebar() {
           <MenuItems className="mt-2 w-full rounded-md bg-red-800 shadow-lg overflow-hidden">
             <MenuItem>
               <Link
-                to="/Relatorio de clientes"
+                to="/relatorios/clientes"
                 className="block px-4 py-2 hover:bg-red-700"
               >
                 Clientes
+              </Link>
+            </MenuItem>
+
+            <MenuItem>
+              <Link
+                to="/relatorios/funcionarios"
+                className="block px-4 py-2 hover:bg-red-700"
+              >
+                Funcionários
               </Link>
             </MenuItem>
 
