@@ -1,9 +1,5 @@
 import { Search, X, AlertTriangle, Eye, Pencil, Trash2 } from "lucide-react";
 
-/* ------------------------------------------------------------------ */
-/*  Selo — badge de status                                             */
-/* ------------------------------------------------------------------ */
-
 export const variantesPadrao = {
   ativo: "text-green-700 bg-green-100",
   inativo: "text-red-900 bg-red-100",
@@ -12,7 +8,9 @@ export const variantesPadrao = {
 export function Selo({ status, variantes = variantesPadrao }) {
   const estilo = variantes[status] ?? "text-gray-600 bg-gray-100";
   return (
-    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase ${estilo}`}>
+    <span
+      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase ${estilo}`}
+    >
       {status}
     </span>
   );
@@ -55,7 +53,10 @@ export function BarraBuscaFiltro({
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="relative flex-1">
-        <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+        <Search
+          size={16}
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        />
         <input
           value={busca}
           onChange={(e) => onBuscaChange(e.target.value)}
@@ -112,7 +113,12 @@ export function FichaCard({
       <div className="flex shrink-0 items-center gap-1 self-end sm:self-auto">
         <BotaoAcao rotulo="Visualizar" icone={Eye} onClick={onVer} />
         <BotaoAcao rotulo="Editar" icone={Pencil} onClick={onEditar} />
-        <BotaoAcao rotulo="Excluir" icone={Trash2} tom="perigo" onClick={onExcluir} />
+        <BotaoAcao
+          rotulo="Excluir"
+          icone={Trash2}
+          tom="perigo"
+          onClick={onExcluir}
+        />
       </div>
     </div>
   );
@@ -145,7 +151,11 @@ export function PainelLateral({
             <p className="text-xs uppercase text-gray-400">{idLabel}</p>
             <h2 className="mt-1 text-xl font-bold text-red-900">{titulo}</h2>
           </div>
-          <button onClick={onFechar} aria-label="Fechar" className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-800">
+          <button
+            onClick={onFechar}
+            aria-label="Fechar"
+            className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-800"
+          >
             <X size={18} />
           </button>
         </div>
@@ -169,13 +179,13 @@ export function PainelLateral({
           </dl>
         ) : (
           <form onSubmit={onSalvar} className="space-y-4 p-6">
-            {campos.map(({ label, name, valor }) => (
+            {campos.map(({ label, name, valor, obrigatorio }) => (
               <div key={name}>
                 <label className="text-sm text-gray-700">{label}</label>
                 <input
                   name={name}
                   defaultValue={valor}
-                  required
+                  required={obrigatorio}
                   className="mt-1 w-full rounded-lg border p-2 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-red-900"
                 />
               </div>
@@ -197,10 +207,17 @@ export function PainelLateral({
               </div>
             )}
             <div className="flex gap-3 pt-2">
-              <button type="submit" className="rounded-lg bg-red-900 px-4 py-2 font-bold text-white transition hover:bg-red-800">
+              <button
+                type="submit"
+                className="rounded-lg bg-red-900 px-4 py-2 font-bold text-white transition hover:bg-red-800"
+              >
                 Salvar alterações
               </button>
-              <button type="button" onClick={onFechar} className="rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50">
+              <button
+                type="button"
+                onClick={onFechar}
+                className="rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50"
+              >
                 Cancelar
               </button>
             </div>
@@ -215,27 +232,43 @@ export function PainelLateral({
 /*  ModalExclusao — confirmação de exclusão                            */
 /* ------------------------------------------------------------------ */
 
-export function ModalExclusao({ item, entidade = "registro", nomeExibido, onCancelar, onConfirmar }) {
+export function ModalExclusao({
+  item,
+  entidade = "registro",
+  nomeExibido,
+  onCancelar,
+  onConfirmar,
+}) {
   if (!item) return null;
 
   return (
     <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/40 px-4">
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
         <div className="flex items-start gap-3">
-          <AlertTriangle size={20} className="mt-0.5 shrink-0 text-red-900" strokeWidth={1.75} />
+          <AlertTriangle
+            size={20}
+            className="mt-0.5 shrink-0 text-red-900"
+            strokeWidth={1.75}
+          />
           <div>
             <h3 className="font-bold text-gray-900">Excluir {entidade}?</h3>
             <p className="mt-1 text-sm text-gray-600">
-              A ficha de <span className="text-gray-900">{nomeExibido}</span> será removida
-              permanentemente. Essa ação não pode ser desfeita.
+              A ficha de <span className="text-gray-900">{nomeExibido}</span>{" "}
+              será removida permanentemente. Essa ação não pode ser desfeita.
             </p>
           </div>
         </div>
         <div className="mt-5 flex justify-end gap-3">
-          <button onClick={onCancelar} className="rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50">
+          <button
+            onClick={onCancelar}
+            className="rounded-lg border px-4 py-2 text-gray-700 hover:bg-gray-50"
+          >
             Cancelar
           </button>
-          <button onClick={onConfirmar} className="rounded-lg bg-red-900 px-4 py-2 font-bold text-white transition hover:bg-red-800">
+          <button
+            onClick={onConfirmar}
+            className="rounded-lg bg-red-900 px-4 py-2 font-bold text-white transition hover:bg-red-800"
+          >
             Excluir
           </button>
         </div>

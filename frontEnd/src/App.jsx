@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Cadastro from "./pages/OS/CadastrarOS";
 import Clientes from "./pages/Cadastros/Clientes";
 import Funcionarios from "./pages/Cadastros/Funcionarios";
 import Servico from "./pages/Cadastros/Servico";
@@ -14,6 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/cadastrarOS" element={<Cadastro />} />
 
         {/* Cadastros */}
         <Route path="/clientes" element={<Clientes />} />

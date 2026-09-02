@@ -19,13 +19,13 @@ export default function Funcionarios() {
     const resultado = await cadastrarFuncionarios({
       nome,
       endereco,
-      dataNascimento,
+      dataNasc: dataNascimento,
       telefone,
       cargo,
       dataAdmissao,
-      dataDemissao,
+      dataDemissao: dataDemissao || null,
       salario,
-      status,
+      status: status === "ativo",
     });
 
     if (resultado.ok) {
@@ -77,7 +77,7 @@ export default function Funcionarios() {
             <div className="md:col-span-2">
               <label>Data de Nascimento</label>
               <input
-                type="text"
+                type="date"
                 value={dataNascimento}
                 onChange={(e) => setDataNascimento(e.target.value)}
                 className="w-full border rounded-lg p-2"
@@ -108,7 +108,7 @@ export default function Funcionarios() {
             <div>
               <label>Data de Admissão</label>
               <input
-                type="text"
+                type="date"
                 value={dataAdmissao}
                 onChange={(e) => setDataAdmissao(e.target.value)}
                 className="w-full border rounded-lg p-2"
@@ -118,11 +118,11 @@ export default function Funcionarios() {
             <div>
               <label>Data de Demissão</label>
               <input
-                type="text"
+                type="date"
                 value={dataDemissao}
                 onChange={(e) => setDataDemissao(e.target.value)}
                 className="w-full border rounded-lg p-2"
-                required={true}
+                obrigatorio:false
               />
             </div>
 
@@ -132,6 +132,8 @@ export default function Funcionarios() {
                 type="number"
                 value={salario}
                 onChange={(e) => setSalario(e.target.value)}
+                min="0"
+                step="0.01"
                 className="w-full border rounded-lg p-2"
                 required={true}
               />

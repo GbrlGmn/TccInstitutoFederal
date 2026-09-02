@@ -52,7 +52,6 @@ export async function deletarCliente(id) {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Erro ao deletar cliente");
-  // resposta 204 No Content — não tem corpo pra converter em JSON
 }
 
 // Reativar cliente

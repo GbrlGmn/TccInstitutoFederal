@@ -23,7 +23,7 @@ export default function Sidebar() {
     <aside className="w-63 bg-red-900 text-gray-100 flex flex-col items-center p-4 min-h-screen">
       <img src={background} alt="Logo SS Paco" className="w-24 mb-8" />
 
-      <nav className="flex flex-col gap-3 w-full">
+      <nav className="flex flex-col gap-3 w-full flex-1">
         <Link
           to="/Dashboard"
           className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
@@ -45,7 +45,7 @@ export default function Sidebar() {
           <MenuItems className="mt-2 w-full rounded-md bg-red-800 shadow-lg overflow-hidden">
             <MenuItem>
               <Link
-                to="/ordemServico"
+                to="/cadastrarOS"
                 className="block px-4 py-2 hover:bg-red-700"
               >
                 Nova OS
@@ -141,19 +141,10 @@ export default function Sidebar() {
 
             <MenuItem>
               <Link
-                to="/Relatorio de OS"
-                className="block px-4 py-2 hover:bg-red-700"
-              >
-                OS
-              </Link>
-            </MenuItem>
-
-            <MenuItem>
-              <Link
                 to="/Relatorio Financeiro"
                 className="block px-4 py-2 hover:bg-red-700"
               >
-                Financeiro
+                Pagamentos
               </Link>
             </MenuItem>
           </MenuItems>
@@ -161,7 +152,7 @@ export default function Sidebar() {
 
         <Link
           to="/"
-          className="flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
+          className="mt-auto flex items-center gap-2 p-3 font-bold rounded-md hover:bg-red-800 transition"
         >
           <LogOut size={20} />
           Sair

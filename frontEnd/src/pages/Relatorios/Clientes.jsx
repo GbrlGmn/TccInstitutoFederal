@@ -212,6 +212,11 @@ export default function Clientes() {
             name: "nome",
             valor: clienteSelecionado?.nome,
           },
+           {
+            label: "CPF",
+            name: "cpf",
+            valor: clienteSelecionado?.cpf,
+          },
           {
             label: "Email",
             name: "email",

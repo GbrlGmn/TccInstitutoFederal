@@ -10,7 +10,7 @@ import {
 } from "../../components/Relatorios";
 import {
   listarFuncionarios,
-  atualizarFuncionario,
+  patchFuncionario,
   deletarFuncionario,
 } from "../../services/api/RelatorioFuncionario";
 
@@ -19,18 +19,22 @@ const OPCOES_STATUS = [
   { valor: "inativo", rotulo: "Inativo" },
 ];
 
-// converte o funcionário vindo do back (status boolean) pro formato que a UI espera (status string)
 function paraUI(funcionarioBack) {
   return {
     ...funcionarioBack,
     status: funcionarioBack.status ? "ativo" : "inativo",
   };
 }
-
-// converte de volta pro formato que o back espera antes de enviar
 function paraBack(funcionarioUI) {
   return {
-    ...funcionarioUI,
+    nome: funcionarioUI.nome,
+    endereco: funcionarioUI.endereco,
+    dataNasc: funcionarioUI.dataNasc,
+    telefone: funcionarioUI.telefone,
+    cargo: funcionarioUI.cargo,
+    dataAdmissao: funcionarioUI.dataAdmissao,
+    dataDemicao: funcionarioUI.dataDemissao,
+    salario: funcionarioUI.salario,
     status: funcionarioUI.status === "ativo",
   };
 }
@@ -66,7 +70,7 @@ export default function Funcionarios() {
     return funcionarios.filter((f) => {
       const combinaBusca =
         f.nome.toLowerCase().includes(busca.toLowerCase()) ||
-        (f.email ?? "").toLowerCase().includes(busca.toLowerCase());
+        (f.cargo ?? "").toLowerCase().includes(busca.toLowerCase());
       const combinaStatus =
         filtroStatus === "todos" || f.status === filtroStatus;
       return combinaBusca && combinaStatus;
@@ -100,12 +104,17 @@ export default function Funcionarios() {
     const atualizadoUI = {
       ...funcionarioSelecionado,
       nome: form.get("nome"),
-      email: form.get("email"),
-      cidade: form.get("cidade"),
+      endereco: form.get("endereco"),
+      dataNasc: form.get("dataNascimento"),
+      telefone: form.get("telefone"),
+      cargo: form.get("cargo"),
+      dataAdmissao: form.get("dataAdmissao"),
+      dataDemissao: form.get("dataDemissao") || null,
+      salario: form.get("salario"),
       status: form.get("status"),
     };
     try {
-      const resposta = await atualizarFuncionario(
+      const resposta = await patchFuncionario(
         atualizadoUI.id,
         paraBack(atualizadoUI),
       );
@@ -144,7 +153,7 @@ export default function Funcionarios() {
             <BarraBuscaFiltro
               busca={busca}
               onBuscaChange={setBusca}
-              placeholder="Buscar por nome ou email"
+              placeholder="Buscar por nome ou cargo"
               filtroAtivo={filtroStatus}
               onFiltroChange={setFiltroStatus}
               opcoesFiltro={["todos", "ativo", "inativo"]}
@@ -182,8 +191,8 @@ export default function Funcionarios() {
                 id={f.id}
                 status={f.status}
                 titulo={f.nome}
-                subtitulo={f.email}
-                meta={f.cidade}
+                subtitulo={f.cargo}
+                meta={f.telefone}
                 onVer={() => abrirPainel(f, "ver")}
                 onEditar={() => abrirPainel(f, "editar")}
                 onExcluir={() => setFuncionarioParaExcluir(f)}
@@ -214,14 +223,39 @@ export default function Funcionarios() {
             valor: funcionarioSelecionado?.nome,
           },
           {
-            label: "Email",
-            name: "email",
-            valor: funcionarioSelecionado?.email,
+            label: "Endereço",
+            name: "endereco",
+            valor: funcionarioSelecionado?.endereco,
           },
           {
-            label: "Cidade",
-            name: "cidade",
-            valor: funcionarioSelecionado?.cidade,
+            label: "Data de Nascimento",
+            name: "dataNascimento",
+            valor: funcionarioSelecionado?.dataNasc,
+          },
+          {
+            label: "Telefone",
+            name: "telefone",
+            valor: funcionarioSelecionado?.telefone,
+          },
+          {
+            label: "Cargo",
+            name: "cargo",
+            valor: funcionarioSelecionado?.cargo,
+          },
+          {
+            label: "Data de Admissão",
+            name: "dataAdmissao",
+            valor: funcionarioSelecionado?.dataAdmissao,
+          },
+          {
+            label: "Data de Demissão",
+            name: "dataDemissao",
+            valor: funcionarioSelecionado?.dataDemissao,
+          },
+          {
+            label: "Salário",
+            name: "salario",
+            valor: funcionarioSelecionado?.salario,
           },
         ]}
         campoStatus="status"
