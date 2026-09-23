@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Cadastro from "./pages/OS/CadastrarOS";
+import Relatorio from "./pages/OS/Relatorio";
+import Orcamentos from "./pages/Orcamentos";
 import Clientes from "./pages/Cadastros/Clientes";
 import Funcionarios from "./pages/Cadastros/Funcionarios";
 import Servico from "./pages/Cadastros/Servico";
@@ -17,6 +19,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="/cadastrarOS" element={<Cadastro />} />
+        <Route path="/Relatorio" element={<Relatorio />} />
+
+        <Route path="/orcamentos" element={<Orcamentos />} />
 
         {/* Cadastros */}
         <Route path="/clientes" element={<Clientes />} />
@@ -25,7 +30,10 @@ function App() {
 
         {/* Relatórios */}
         <Route path="/relatorios/clientes" element={<RelatoriosClientes />} />
-        <Route path="/relatorios/funcionarios" element={<RelatoriosFuncionarios />} />
+        <Route
+          path="/relatorios/funcionarios"
+          element={<RelatoriosFuncionarios />}
+        />
       </Routes>
     </BrowserRouter>
   );

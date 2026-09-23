@@ -1,22 +1,24 @@
 import { useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Formularios from "../../components/Formularios";
-import { cadastrarCliente } from "../../services/api/Cliente";
+import { cadastrarServico } from "../../services/api/Servico";
 
 export default function Servico() {
   const [nome, setNome] = useState("");
   const [valor, setValor] = useState("");
   const [TempoMedio, setTempoMedio] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("ativo");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resultado = await cadastrarCliente({
+    console.log("STATUS:", status);
+
+    const resultado = await cadastrarServico({
       nome,
       valor,
       TempoMedio,
-      status,
+      status: status === "ativo",
     });
 
     if (resultado.ok) {
@@ -26,6 +28,8 @@ export default function Servico() {
       setValor("");
       setTempoMedio("");
       setStatus("");
+    } else {
+      alert("Erro ao cadastrar serviço");
     }
   };
   return (
@@ -72,16 +76,15 @@ export default function Servico() {
             </div>
 
             <div>
-              <label>Status </label>
+              <label>Status</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
                 className="w-full border rounded-lg p-2"
                 required={true}
               >
-                <option>-</option>
-                <option>Ativo</option>
-                <option>Inativo</option>
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
               </select>
             </div>
           </div>

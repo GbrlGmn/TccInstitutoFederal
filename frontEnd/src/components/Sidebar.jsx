@@ -53,7 +53,7 @@ export default function Sidebar() {
             </MenuItem>
 
             <MenuItem>
-              <Link to="/listarOS" className="block px-4 py-2 hover:bg-red-700">
+              <Link to="/Relatorio" className="block px-4 py-2 hover:bg-red-700">
                 Listar OS
               </Link>
             </MenuItem>

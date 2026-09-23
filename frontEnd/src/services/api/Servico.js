@@ -14,3 +14,13 @@ export async function cadastrarServico(servico) {
     data,
   };
 }
+
+export async function listarServicos() {
+  const response = await fetch("http://localhost:8080/servico");
+
+  if (!response.ok) {
+    throw new Error("Erro ao listar serviços");
+  }
+
+  return response.json();
+}
