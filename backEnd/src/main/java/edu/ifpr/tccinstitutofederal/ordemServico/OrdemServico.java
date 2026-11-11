@@ -13,6 +13,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrdemServico {
 
-    //Relacionamentos
+    // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
@@ -31,13 +32,13 @@ public class OrdemServico {
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    @OneToMany(mappedBy = "ordemServico") // Tem que ser exatamente "ordemServico"
-    private List<Recibo> pagamentos; // Ou recibos, como preferir chamar a lista
-
     @OneToMany(mappedBy = "ordemServico")
-    private List<ItemOrdemServico> itens;
+    private List<Recibo> pagamentos = new ArrayList<>();
 
-    //atributos
+    @OneToMany(mappedBy = "ordemServico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemOrdemServico> itens = new ArrayList<>();
+
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -58,13 +59,21 @@ public class OrdemServico {
     @Column(nullable = false)
     private BigDecimal porcentagem;
 
-    //enum
     public enum StatusOrder {
-
         ORCAMENTO,
         EM_ANDAMENTO,
         FINALIZADA,
         CANCELADA
+    }
+
+    public void adicionarItem(ItemOrdemServico item) {
+        item.setOrdemServico(this);
+        this.itens.add(item);
+    }
+
+    public void adicionarPagamento(Recibo recibo) {
+        recibo.setOrdemServico(this);
+        this.pagamentos.add(recibo);
     }
 
     public BigDecimal getValorTotal() {
@@ -75,6 +84,16 @@ public class OrdemServico {
         return this.valorOrdemServico
                 .add(this.valorOrdemServico.multiply(percentual))
                 .setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getValorPago() {
+        return pagamentos.stream()
+                .map(Recibo::getValorPago)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal getValorPendente() {
+        return getValorTotal().subtract(getValorPago());
     }
 
 }
